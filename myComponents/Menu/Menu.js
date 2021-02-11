@@ -1,15 +1,17 @@
 import 'react-native-gesture-handler';
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, View, Text, Button } from "react-native";
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Credits } from '../Credits/Credits'
 
 const Stack = createStackNavigator();
 
 
 class Menu extends React.Component {
+
+
   render(){
+
+    
     return (
     
 
@@ -20,8 +22,9 @@ class Menu extends React.Component {
               
         <Button
             title="Play"
-            onPress={() =>
+            onPress={() => {
               this.props.navigation.navigate('Game')
+              }
             }
           />
   

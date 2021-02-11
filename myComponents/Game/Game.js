@@ -1,7 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState, useEffect } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import {Image, View, StyleSheet, Dimensions } from 'react-native';
 import { Accelerometer } from 'expo-sensors';
+
+// Assets 
+import playerImg from '../../assets/ZinZinPlayer.png';
+import backgroundSpace from '../../assets/Space.PNG';
 
 
 export default function Game() {
@@ -33,7 +37,7 @@ export default function Game() {
     Accelerometer.addListener(accelerometerData => {
       setData(accelerometerData);
     })
-    const { x, y, z } = data;
+    const { x, y, z } = data;   // simplification this.state.data.x  => x
 
     // PLAYER
     const [jump, setJump] = useState(false)
@@ -95,7 +99,7 @@ export default function Game() {
         function collisionCheck() {
             for(let i = 0; i < marginBottomPlat.length; i++){ // pour toute les platformes repertiorier dans le tableau marginBottomPlat
                 if(bottomPlayer - 20 < marginBottomPlat[i] +2 && bottomPlayer - 20 > marginBottomPlat[i] - 2 
-                    && (175 + -x*200) > marginLeftPlat[i] && (175 + -x*200)< marginLeftPlat[i] + widthPlat ){
+                    && (175 + -x*200) > marginLeftPlat[i] && (175 + -x*200)< marginLeftPlat[i] + widthPlat ){ 
                     setJump(!jump) // Si la collision est validé jump passe a true 
                     movePlat() // Appelle de la fonction qui fait dessendre les platformes
                 }
@@ -107,7 +111,9 @@ export default function Game() {
     
     return (
         <View style={styles.gameContainer, { backgroundColor: 'grey', height: screenHeight - screenHeight/3, width: screenWidth, zIndex: 0, display: 'flex', flexDirection: 'column-reverse'}} >  
-            <View style={styles.player,{marginLeft : 175 + -x*200, marginBottom: bottomPlayer, position: 'absolute',  backgroundColor: 'pink', height: 20, width: 20}}> 
+            <Image style={styles.bgImg} source={backgroundSpace}></Image> 
+            <View style={styles.player,{marginLeft : 175 + -x*200, marginBottom: bottomPlayer, position: 'absolute',  height: 30, width: 30}}> 
+                <Image style={styles.playerImg} source={playerImg}></Image> 
             </View>
             {platform}
             <StatusBar style="auto"/>
@@ -116,7 +122,9 @@ export default function Game() {
 }
 
 const styles = StyleSheet.create({
-    container: {
-  
+    playerImg: {
+        position: 'absolute',
+        width: 30,
+        height: 30
     },
   });
